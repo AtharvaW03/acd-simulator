@@ -19,6 +19,7 @@ public class CallController {
         queueManager.addCall(newCall);
 
         return "Call accepted from " + id + ". Queue size: " + queueManager.getQueueSize();
+
     }
 
 }
