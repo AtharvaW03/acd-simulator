@@ -13,7 +13,7 @@ public class CallController {
     private final QueueManagerService queueManager;
 
     @GetMapping("/call")
-    public String receiveCall(@RequestParam String id, @RequestParam(defaultValue = "5") int priority){
+    public String receiveCall(@RequestParam String id, @RequestParam(defaultValue = "10") int priority){
 
         Call newCall = new Call(id, priority);
         queueManager.addCall(newCall);
