@@ -1,0 +1,54 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-02-27T01:43:15.171+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.AcdsimulatorApplication            : Starting AcdsimulatorApplication v0.0.1-SNAPSHOT using Java 21.0.8 with PID 11564 (C:\Projects\acdsimulator\target\acdsimulator-0.0.1-SNAPSHOT.jar started by athar in C:\Projects\acdsimulator)
+2026-02-27T01:43:15.188+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.AcdsimulatorApplication            : No active profile set, falling back to 1 default profile: "default"
+2026-02-27T01:43:18.611+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-27T01:43:18.641+05:30  INFO 11564 --- [acdsimulator] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-27T01:43:18.641+05:30  INFO 11564 --- [acdsimulator] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-27T01:43:18.691+05:30  INFO 11564 --- [acdsimulator] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3357 ms
+2026-02-27T01:43:21.121+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-02-27T01:43:22.675+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-02-27T01:43:22.845+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-27T01:43:22.845+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3a7dcfb7]]
+2026-02-27T01:43:22.845+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-27T01:43:22.927+05:30  INFO 11564 --- [acdsimulator] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-27T01:43:22.944+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.AcdsimulatorApplication            : Started AcdsimulatorApplication in 8.416 seconds (process running for 9.348)
+2026-02-27T01:43:23.148+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup] Spinning up 10 simulated agents on virtual threads...
+2026-02-27T01:43:23.151+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-01 (AGT-8C966763)
+2026-02-27T01:43:23.193+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-02 (AGT-E22D4430)
+2026-02-27T01:43:23.193+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-03 (AGT-F72331A2)
+2026-02-27T01:43:23.193+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-8C966763] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-01 is clocked in (virtual thread)
+2026-02-27T01:43:23.193+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-E22D4430] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-02 is clocked in (virtual thread)
+2026-02-27T01:43:23.194+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-04 (AGT-8030B8C1)
+2026-02-27T01:43:23.194+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-F72331A2] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-03 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-05 (AGT-34863A13)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-8030B8C1] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-04 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-34863A13] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-05 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-06 (AGT-7EFE6641)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-7EFE6641] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-06 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-07 (AGT-F46EE266)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-F46EE266] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-07 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-08 (AGT-7DD485ED)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-7DD485ED] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-08 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-09 (AGT-6ACC40C8)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-6ACC40C8] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-09 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.a.service.AgentRegistryService       : [Registry] + Agent registered: Agent-10 (AGT-2C485FFA)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup] 10 agents registered. CallRoutingService will dispatch calls via @Scheduled.
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [nt-AGT-2C485FFA] c.s.acdsimulator.AgentSimulationRunner   : [Agent] Agent-10 is clocked in (virtual thread)
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup] API ready:
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   POST /api/v1/calls         — ingest a call
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   POST /api/v1/calls/bulk    — ingest many calls
+2026-02-27T01:43:23.197+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   GET  /api/v1/calls/stats   — queue stats
+2026-02-27T01:43:23.202+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   POST /api/v1/agents        — register an agent
+2026-02-27T01:43:23.202+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   GET  /api/v1/agents        — list agents
+2026-02-27T01:43:23.202+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   GET  /api/v1/metrics/snapshot — ACD snapshot
+2026-02-27T01:43:23.202+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   GET  /actuator/health      — health check
+2026-02-27T01:43:23.202+05:30  INFO 11564 --- [acdsimulator] [           main] c.s.acdsimulator.AgentSimulationRunner   : [Startup]   WS   /ws-acd               — real-time dashboard

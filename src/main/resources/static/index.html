@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACD Simulator — Live Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #e6edf3; }
+        header { background: #161b22; border-bottom: 1px solid #30363d; padding: 16px 32px; display: flex; align-items: center; gap: 16px; }
+        header h1 { font-size: 1.25rem; font-weight: 600; }
+        #status-dot { width: 10px; height: 10px; border-radius: 50%; background: #3d4449; transition: background 0.3s; }
+        #status-dot.connected { background: #2ea043; box-shadow: 0 0 8px #2ea043; }
+        #status-label { font-size: 0.8rem; color: #8b949e; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 32px; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; }
+        .card .label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+        .card .value { font-size: 2rem; font-weight: 700; color: #e6edf3; font-variant-numeric: tabular-nums; }
+        .card.highlight .value { color: #58a6ff; }
+        .card.warn .value { color: #f0883e; }
+        .card.danger .value { color: #f85149; }
+        .card.success .value { color: #2ea043; }
+        .section { padding: 0 32px 32px; }
+        .section h2 { font-size: 0.9rem; color: #8b949e; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+        #raw { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.8rem; color: #79c0ff; white-space: pre; overflow-x: auto; }
+        .instructions { padding: 0 32px 32px; background: #0d1117; }
+        .instructions details { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+        .instructions summary { cursor: pointer; color: #58a6ff; font-weight: 600; margin-bottom: 8px; }
+        .instructions code { background: #0d1117; border: 1px solid #30363d; border-radius: 4px; padding: 2px 6px; font-size: 0.85rem; }
+        .instructions pre { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 12px; margin-top: 8px; font-size: 0.8rem; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div id="status-dot"></div>
+    <h1>⚡ ACD Simulator — Live Dashboard</h1>
+    <span id="status-label">Connecting…</span>
+    <span id="snapshot-time" style="margin-left:auto; font-size:0.75rem; color:#8b949e;"></span>
+</header>
+
+<div class="grid">
+    <div class="card highlight">
+        <div class="label">Queue Depth</div>
+        <div class="value" id="queueDepth">—</div>
+    </div>
+    <div class="card success">
+        <div class="label">Available Agents</div>
+        <div class="value" id="availableAgents">—</div>
+    </div>
+    <div class="card warn">
+        <div class="label">Busy Agents</div>
+        <div class="value" id="busyAgents">—</div>
+    </div>
+    <div class="card">
+        <div class="label">Total Received</div>
+        <div class="value" id="totalReceived">—</div>
+    </div>
+    <div class="card success">
+        <div class="label">Total Completed</div>
+        <div class="value" id="totalCompleted">—</div>
+    </div>
+    <div class="card danger">
+        <div class="label">Total Abandoned</div>
+        <div class="value" id="totalAbandoned">—</div>
+    </div>
+    <div class="card danger">
+        <div class="label">Total Dropped</div>
+        <div class="value" id="totalDropped">—</div>
+    </div>
+    <div class="card">
+        <div class="label">Avg Wait (ms)</div>
+        <div class="value" id="avgWaitTimeMs">—</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Last Payload (JSON)</h2>
+    <pre id="raw">Waiting for first WebSocket message…</pre>
+</div>
+
+<div class="instructions">
+    <details open>
+        <summary>📡 Quick API Reference</summary>
+        <p style="margin-top:8px; color:#8b949e; font-size:0.85rem;">Try these in a terminal (curl) or Postman:</p>
+        <pre># Ingest a single call (priority 1 = VIP)
+curl -X POST http://localhost:8080/api/v1/calls \
+     -H "Content-Type: application/json" \
+     -d '{"callerId":"+1-555-0100","priority":1}'
+
+# Bulk ingest 3 calls
+curl -X POST http://localhost:8080/api/v1/calls/bulk \
+     -H "Content-Type: application/json" \
+     -d '[{"callerId":"+1-555-0101","priority":2},{"callerId":"+1-555-0102","priority":5},{"callerId":"+1-555-0103","priority":1}]'
+
+# Queue stats
+curl http://localhost:8080/api/v1/calls/stats
+
+# Register an agent
+curl -X POST http://localhost:8080/api/v1/agents \
+     -H "Content-Type: application/json" \
+     -d '{"name":"Agent Charlie"}'
+
+# List agents
+curl http://localhost:8080/api/v1/agents
+
+# ACD metrics snapshot
+curl http://localhost:8080/api/v1/metrics/snapshot
+
+# Spring Actuator health
+curl http://localhost:8080/actuator/health</pre>
+    </details>
+</div>
+
+<!--
+    SockJS — JavaScript fallback if WebSocket is blocked by a firewall.
+    STOMP.js — Adds structured messaging protocol over the raw WebSocket.
+    These are served from a CDN; in production you'd bundle them with npm/webpack.
+-->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    const dot   = document.getElementById('status-dot');
+    const label = document.getElementById('status-label');
+
+    function update(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value !== undefined && value !== null ? value : '—';
+    }
+
+    // Connect to the Spring WebSocket endpoint (with SockJS fallback)
+    const socket = new SockJS('/ws-acd');
+    const stomp  = Stomp.over(socket);
+    stomp.debug = null; // suppress STOMP debug logs in the browser console
+
+    stomp.connect({}, frame => {
+        dot.classList.add('connected');
+        label.textContent = 'Live';
+
+        // Subscribe to the topic our DashboardBroadcaster publishes to every 2s
+        stomp.subscribe('/topic/dashboard', message => {
+            const m = JSON.parse(message.body);
+
+            update('queueDepth',      m.currentQueueDepth);
+            update('availableAgents', m.availableAgents);
+            update('busyAgents',      m.busyAgents);
+            update('totalReceived',   m.totalCallsReceived);
+            update('totalCompleted',  m.totalCallsCompleted);
+            update('totalAbandoned',  m.totalCallsAbandoned);
+            update('totalDropped',    m.totalCallsDropped);
+            update('avgWaitTimeMs',   m.avgWaitTimeMs !== undefined
+                ? Math.round(m.avgWaitTimeMs) : '—');
+
+            document.getElementById('snapshot-time').textContent =
+                'Last update: ' + new Date(m.snapshotAt).toLocaleTimeString();
+            document.getElementById('raw').textContent = JSON.stringify(m, null, 2);
+        });
+    }, error => {
+        dot.classList.remove('connected');
+        label.textContent = 'Disconnected — is the server running?';
+    });
+</script>
+</body>
+</html>
+
